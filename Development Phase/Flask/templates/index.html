@@ -1,0 +1,252 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Diabetes Prediction</title>
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+	
+	.bg-dark {
+		background-color: 	#1a1552!important;
+	}
+	#result {
+		color: #1a1552;
+	}
+	
+	</style>
+	<style>
+		#input-attributes-form {
+			margin: 20px 0; /* Adjusted margin to shift the form to the left */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            max-width: 500px;
+            margin-left: 0; /* Added margin-left to shift the form to the left */
+		}
+	
+		.column {
+			width: 33.33%;
+			float: left;
+			padding: 10px;
+		}
+	
+		.clearfix::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+	
+		label {
+			display: block;
+			margin-top: 10px;
+		}
+	
+		input[type="text"],
+		input[type="number"] {
+			width: 100%;
+			padding: 10px;
+			margin-top: 5px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+	
+		#btn-predict {
+			background-color: #007BFF;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	
+		#btn-predict:hover {
+			background-color: #0056b3;
+		}
+		
+		body {
+            background-image: url('https://img.freepik.com/premium-photo/medical-stethoscope-white-heart-symbol-blue-background-with-copy-space_179738-835.jpg?w=826');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+		.container {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+		.contain {
+			padding: 6px;
+			background-color: #fff;
+			border-radius: 9px;
+			margin-top: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			padding-left: 20px;
+			width: fit-content;
+			padding-right: 20px;
+		}
+		.loader {
+			display: none;
+			text-align: center;
+		}
+		p {
+            text-align: center;
+            font-size: 20px;
+        } 
+		select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            appearance: none;
+            background: url('https://cdn.iconscout.com/icon/free/png-256/arrow-down-1767489-1502435.png') no-repeat right #fff;
+            background-size: 20px;
+        }
+
+	</style>
+	
+</head>
+<body>
+        <div class="container">
+			<h1 align="center">Welcome to our Diabetes Prediction Website!</h1>
+    <p>We are excited to have you here. We understand that diabetes can be a serious condition, and we are committed to providing you with accurate prediction of diabetes.</p>
+        </div>
+        <div id="content" style="margin-top:2em">
+		  		<div id="form-container">
+					<form action="/" id="input-attributes-form" method="post" onsubmit="return false;">
+						<label for="HighBP">Do you have High Blood Pressure?</label>
+						<select id="HighBP" name="HighBP" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="HighChol">Do you have High Cholesterol Level?</label>
+						<select id="HighChol" name="HighChol" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="CholCheck">Did you check your Cholesterol in past 5 years?</label>
+						<select id="CholCheck" name="CholCheck" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="BMI">Enter your BMI:</label>
+						<input type="number" name="BMI" id="BMI" required>
+						
+						<label for="Smoker">Have you smoked atleast 100 cigarettes in your entire life?</label>
+						<select id="Smoker" name="Smoker" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="Stroke">Did you ever had a Stroke?</label>
+						<select id="Stroke" name="Stroke" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+					
+						<label for="HeartDiseaseorAttack">Do you have Coronary Heart Disease (CHD) or myocardial infarction (MI)?</label>
+						<select id="HeartDiseaseorAttack" name="HeartDiseaseorAttack" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+					
+						<label for="PhysActivity">Are you physically Active in past 30 days(not including job)?</label>
+						<select id="PhysActivity" name="PhysActivity" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="Fruits">Do you consume Fruits one or more times per a day?</label>
+						<select id="Fruits" name="Fruits" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="Veggies">Do you consume Veggies one or more times per a day?</label>
+						<select id="Veggies" name="Veggies" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="hvyAlcoholConsump">Are you an Alcoholic?</label>
+    					<select id="hvyAlcoholConsump" name="hvyAlcoholConsump" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="AnyHealthcare">Do you have any kind of Healthcare coverage including health insurance etc?</label>
+						<select id="AnyHealthcare" name="AnyHealthcare" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="NoDocbcCost">Was there a time in the past 12 months when you needed to see a doctor but could not because of cost?</label>
+						<select id="NoDocbcCost" name="NoDocbcCost" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="GenHlth">Rate your General Health Condition (Out of 5)</label>
+						<input type="number" name="GenHlth" id="GenHlth" min="0" max="5" required>
+						
+						<label for="MentHlth">Rate your Mental Health Condition (Out of 30):</label>
+						<input type="number" name="MentHlth" id="MentHlth" min="0" max="30" required>
+						
+						<label for="PhysHlth">Rate your Physical Health Condition (Out of 30):</label>
+						<input type="number" name="PhysHlth" id="PhysHlth" min="0" max="30" required>
+						
+						<label for="DiffWalk">Do you have serious difficulty while walking or climbing stairs?</label>
+						<select id="Diffwalk" name="Diffwalk" required>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						<label for="Sex">Select your Gender</label>
+						<select id="Sex" name="Sex" required>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+						</select>
+						
+						<label for="Age">Enter your Age:</label>
+						<input type="number" name="Age" id="Age" required>
+						
+						<label for="Education">Enter your Educational level (Scale: 1 to 10):</label>
+						<input type="number" name="Education" id="Education" min="0" max="10" required>
+						
+						<label for="Income">Enter your Income level(Scale: 1 = less than $10,000 5 = less than $35,000 &nbsp; 8 = $75,000 or more):</label>
+						<input type="number" name="Income" id="Income" min="0" max="10" required>
+					
+						<br>
+						<br>
+						<input id="btn-predict" type="submit" value="Submit">
+					</form>
+				</div>
+					
+					
+					<div class="loader" style="display:none;"></div>
+			<div class="contain">
+
+				<h2>
+					<span id="result"> </span>
+				</h2>
+			</div>
+ 
+		</div>
+    </div>
+</body>
+
+<footer>
+    <script src="{{ url_for('static', filename='js/main.js') }}" type="text/javascript"></script>    
+</footer>
+
+</html>
